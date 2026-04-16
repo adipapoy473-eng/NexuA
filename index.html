@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description"
+    content="NexusAI - Chatbot AI Premium berbasis Google Gemini 2.5 Flash dengan antarmuka modern dan fitur lengkap" />
+  <title>NexusAI — Gemini Chatbot</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+  <!-- Background Decorations -->
+  <div class="bg-decoration">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+    <div class="grid-overlay"></div>
+  </div>
+
+  <div class="app-container">
+    <!-- ═══════════════ SIDEBAR ═══════════════ -->
+    <aside class="sidebar" id="sidebar">
+      <!-- Sidebar Header -->
+      <div class="sidebar-header">
+        <div class="logo">
+          <div class="logo-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+              <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" fill="url(#logoGrad)" />
+              <defs>
+                <linearGradient id="logoGrad" x1="3" y1="2" x2="21" y2="22">
+                  <stop stop-color="#a78bfa" />
+                  <stop offset="1" stop-color="#6366f1" />
+                </linearGradient>
+              </defs>
+            </svg>
+          </div>
+          <span class="logo-text">NexusAI</span>
+        </div>
+        <button class="sidebar-close-btn" id="sidebar-close" aria-label="Tutup sidebar">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+
+      <!-- New Chat -->
+      <button class="new-chat-btn" id="new-chat-btn">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <line x1="12" y1="5" x2="12" y2="19"></line>
+          <line x1="5" y1="12" x2="19" y2="12"></line>
+        </svg>
+        Chat Baru
+      </button>
+
+      <!-- Chat History -->
+      <div class="chat-history-section">
+        <h3 class="section-label">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"></circle>
+            <polyline points="12 6 12 12 16 14"></polyline>
+          </svg>
+          Riwayat
+        </h3>
+        <div class="chat-history-list" id="chat-history-list">
+          <!-- Dynamically populated -->
+        </div>
+      </div>
+
+      <!-- Settings Panel -->
+      <div class="settings-panel" id="settings-panel">
+        <button class="settings-toggle-btn" id="settings-toggle-btn">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path
+              d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z">
+            </path>
+            <circle cx="12" cy="12" r="3"></circle>
+          </svg>
+          Parameter AI
+          <svg class="chevron-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+            stroke-width="2">
+            <polyline points="6 9 12 15 18 9"></polyline>
+          </svg>
+        </button>
+        <div class="settings-content" id="settings-content">
+          <div class="setting-group">
+            <label for="temperature">
+              Temperature
+              <span class="setting-badge" id="temp-value">0.7</span>
+            </label>
+            <input type="range" id="temperature" min="0" max="2" step="0.1" value="0.7" />
+            <p class="setting-hint">Semakin tinggi = semakin kreatif & acak</p>
+          </div>
+          <div class="setting-group">
+            <label for="top-k">
+              Top-K
+              <span class="setting-badge" id="topk-value">40</span>
+            </label>
+            <input type="range" id="top-k" min="1" max="40" step="1" value="40" />
+            <p class="setting-hint">Membatasi pilihan token teratas</p>
+          </div>
+          <div class="setting-group">
+            <label for="top-p">
+              Top-P
+              <span class="setting-badge" id="topp-value">0.95</span>
+            </label>
+            <input type="range" id="top-p" min="0" max="1" step="0.05" value="0.95" />
+            <p class="setting-hint">Nucleus sampling probability</p>
+          </div>
+          <div class="setting-group">
+            <label for="system-instruction">System Instruction</label>
+            <textarea id="system-instruction" rows="3"
+              placeholder="Contoh: Kamu adalah ahli coding Python..."></textarea>
+            <p class="setting-hint">Atur persona dan perilaku AI</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sidebar Footer -->
+      <div class="sidebar-footer">
+        <div class="footer-brand">
+          <span class="footer-model">Gemini 2.5 Flash</span>
+          <span class="footer-separator">•</span>
+          <span class="footer-org">Hacktiv8 × Google.org</span>
+        </div>
+      </div>
+    </aside>
+
+    <!-- ═══════════════ MAIN AREA ═══════════════ -->
+    <main class="main-content">
+      <!-- Top Navigation -->
+      <header class="top-bar">
+        <button class="menu-btn" id="menu-btn" aria-label="Buka sidebar">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="4" y1="6" x2="20" y2="6"></line>
+            <line x1="4" y1="12" x2="16" y2="12"></line>
+            <line x1="4" y1="18" x2="12" y2="18"></line>
+          </svg>
+        </button>
+
+        <div class="top-bar-center">
+          <div class="status-indicator">
+            <div class="status-dot"></div>
+          </div>
+          <span class="top-bar-title">NexusAI</span>
+        </div>
+
+        <div class="top-bar-actions">
+          <div class="model-badge">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+            </svg>
+            gemini-2.5-flash
+          </div>
+          <button class="action-btn" id="theme-toggle" aria-label="Toggle tema">
+            <svg class="sun-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+              stroke-width="2">
+              <circle cx="12" cy="12" r="5"></circle>
+              <line x1="12" y1="1" x2="12" y2="3"></line>
+              <line x1="12" y1="21" x2="12" y2="23"></line>
+              <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+              <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+              <line x1="1" y1="12" x2="3" y2="12"></line>
+              <line x1="21" y1="12" x2="23" y2="12"></line>
+              <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+              <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+            </svg>
+            <svg class="moon-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+              stroke-width="2" style="display:none">
+              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+            </svg>
+          </button>
+        </div>
+      </header>
+
+      <!-- Chat Container -->
+      <div class="chat-box" id="chat-box">
+        <!-- Welcome Screen -->
+        <div class="welcome-screen" id="welcome-screen">
+          <div class="welcome-avatar">
+            <div class="welcome-avatar-ring"></div>
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="none">
+              <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" fill="url(#welcomeGrad)" />
+              <defs>
+                <linearGradient id="welcomeGrad" x1="3" y1="2" x2="21" y2="22">
+                  <stop stop-color="#c4b5fd" />
+                  <stop offset="1" stop-color="#818cf8" />
+                </linearGradient>
+              </defs>
+            </svg>
+          </div>
+          <h1 class="welcome-title">Halo, ada yang bisa dibantu? 👋</h1>
+          <p class="welcome-subtitle">Saya NexusAI, asisten cerdas berbasis Gemini. Tanyakan apa saja — dari coding,
+            sains, sampai ide kreatif!</p>
+
+          <div class="suggestion-grid">
+            <button class="suggestion-card"
+              data-prompt="Jelaskan apa itu Artificial Intelligence secara sederhana dan mudah dipahami">
+              <div class="suggestion-icon">🧠</div>
+              <div class="suggestion-text">
+                <strong>Apa itu AI?</strong>
+                <span>Penjelasan mudah tentang kecerdasan buatan</span>
+              </div>
+            </button>
+            <button class="suggestion-card"
+              data-prompt="Buatkan contoh kode JavaScript modern untuk fetch API dengan async/await dan error handling">
+              <div class="suggestion-icon">💻</div>
+              <div class="suggestion-text">
+                <strong>Contoh Kode JS</strong>
+                <span>Fetch API dengan async/await</span>
+              </div>
+            </button>
+            <button class="suggestion-card"
+              data-prompt="Berikan 5 tips produktivitas terbaik untuk software developer di tahun 2026">
+              <div class="suggestion-icon">🚀</div>
+              <div class="suggestion-text">
+                <strong>Tips Developer</strong>
+                <span>5 tips produktivitas terbaik</span>
+              </div>
+            </button>
+            <button class="suggestion-card"
+              data-prompt="Apa saja tren teknologi terbaru di 2026 yang paling berpengaruh? Jelaskan masing-masing">
+              <div class="suggestion-icon">✨</div>
+              <div class="suggestion-text">
+                <strong>Tren Teknologi</strong>
+                <span>Teknologi terbaru dan paling berpengaruh</span>
+              </div>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Input Area -->
+      <div class="input-area">
+        <form id="chat-form" autocomplete="off">
+          <div class="input-wrapper">
+            <textarea id="user-input" placeholder="Tulis pesan ke NexusAI..." rows="1" autofocus></textarea>
+            <div class="input-actions">
+              <span class="char-count" id="char-count"></span>
+              <button type="submit" class="send-btn" id="send-btn" aria-label="Kirim pesan">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                  <line x1="22" y1="2" x2="11" y2="13"></line>
+                  <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                </svg>
+              </button>
+            </div>
+          </div>
+          <p class="input-hint"><kbd>Enter</kbd> kirim · <kbd>Shift+Enter</kbd> baris baru</p>
+        </form>
+      </div>
+    </main>
+  </div>
+
+  <!-- Mobile Overlay -->
+  <div class="sidebar-overlay" id="sidebar-overlay"></div>
+
+  <!-- Toast Container -->
+  <div class="toast-container" id="toast-container"></div>
+
+  <script src="script.js"></script>
+</body>
+
+</html>

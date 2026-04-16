@@ -1,0 +1,25 @@
+{
+  "name": "gemini-chatbot-api",
+  "version": "1.0.0",
+  "description": "Chatbot berbasis Gemini AI Model - AI Productivity Program by Hacktiv8",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "node --watch index.js"
+  },
+  "keywords": [
+    "gemini",
+    "chatbot",
+    "ai",
+    "hacktiv8"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.21.0",
+    "dotenv": "^16.4.5",
+    "cors": "^2.8.5",
+    "@google/genai": "^1.0.0"
+  }
+}
